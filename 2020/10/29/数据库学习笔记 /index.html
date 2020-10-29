@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>数据库学习笔记 | Kei's blog</title><meta name="description" content="数据库学习笔记"><meta name="keywords" content="GXUST笔记"><meta name="author" content="kei"><meta name="copyright" content="kei"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="数据库学习笔记"><meta name="twitter:description" content="数据库学习笔记"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><meta property="og:type" content="article"><meta property="og:title" content="数据库学习笔记"><meta property="og:url" content="http://yoursite.com/2020/10/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/"><meta property="og:site_name" content="Kei's blog"><meta property="og:description" content="数据库学习笔记"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/10/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/"><link rel="next" title="计网学习笔记" href="http://yoursite.com/2020/10/29/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><canvas class="fireworks"></canvas><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kei's blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></span><span class="pull_right" id="search_button"></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/Photo/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">2</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#第一章数据库系统概述"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">第一章数据库系统概述</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#1-1数据和数据管理技术"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">1.1数据和数据管理技术</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">数据</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#信息"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">信息</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#信息与数据之间存在着固有的联系："><span class="toc_mobile_items-number">1.1.3.</span> <span class="toc_mobile_items-text">信息与数据之间存在着固有的联系：</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据管理技术"><span class="toc_mobile_items-number">1.1.4.</span> <span class="toc_mobile_items-text">数据管理技术</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#信息与数据的区别"><span class="toc_mobile_items-number">1.1.5.</span> <span class="toc_mobile_items-text">信息与数据的区别</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据处理发展的三个阶段"><span class="toc_mobile_items-number">1.1.6.</span> <span class="toc_mobile_items-text">数据处理发展的三个阶段</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#人工管理阶段"><span class="toc_mobile_items-number">1.1.7.</span> <span class="toc_mobile_items-text">人工管理阶段</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#文件系统阶段"><span class="toc_mobile_items-number">1.1.8.</span> <span class="toc_mobile_items-text">文件系统阶段</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库阶段"><span class="toc_mobile_items-number">1.1.9.</span> <span class="toc_mobile_items-text">数据库阶段</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#1-2数据库系统"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">1.2数据库系统</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库系统组成"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">数据库系统组成</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">数据库</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库系统的软件主要包括："><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text">数据库系统的软件主要包括：</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库管理系统"><span class="toc_mobile_items-number">1.2.4.</span> <span class="toc_mobile_items-text">数据库管理系统</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库系统结构"><span class="toc_mobile_items-number">1.2.5.</span> <span class="toc_mobile_items-text">数据库系统结构</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据处理的三个阶段"><span class="toc_mobile_items-number">1.2.6.</span> <span class="toc_mobile_items-text">数据处理的三个阶段</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#第二章关系数据库的基本理论"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">第二章关系数据库的基本理论</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#2-1关系数据模型"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">2.1关系数据模型</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系具有的性质"><span class="toc_mobile_items-number">2.1.1.</span> <span class="toc_mobile_items-text">关系具有的性质:</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#域"><span class="toc_mobile_items-number">2.1.2.</span> <span class="toc_mobile_items-text">域:</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#笛卡尔积"><span class="toc_mobile_items-number">2.1.3.</span> <span class="toc_mobile_items-text">笛卡尔积</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#键"><span class="toc_mobile_items-number">2.1.4.</span> <span class="toc_mobile_items-text">键:</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实体联系"><span class="toc_mobile_items-number">2.1.5.</span> <span class="toc_mobile_items-text">实体联系:</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库的三级体系结构"><span class="toc_mobile_items-number">2.1.6.</span> <span class="toc_mobile_items-text">数据库的三级体系结构</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系和关系模式的区别"><span class="toc_mobile_items-number">2.1.7.</span> <span class="toc_mobile_items-text">关系和关系模式的区别</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#特点及注意"><span class="toc_mobile_items-number">2.1.8.</span> <span class="toc_mobile_items-text">特点及注意:</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#2-1-2-关系操作"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">2.1.2 关系操作</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#基本的关系操作"><span class="toc_mobile_items-number">2.2.1.</span> <span class="toc_mobile_items-text">基本的关系操作</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系数据语言分类"><span class="toc_mobile_items-number">2.2.2.</span> <span class="toc_mobile_items-text">关系数据语言分类</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系模型的完整性规则"><span class="toc_mobile_items-number">2.2.3.</span> <span class="toc_mobile_items-text">关系模型的完整性规则</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#2-2-关系代数的基本运算"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">2.2 关系代数的基本运算</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#集合运算符"><span class="toc_mobile_items-number">2.3.1.</span> <span class="toc_mobile_items-text">集合运算符</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#专门的关系运算符"><span class="toc_mobile_items-number">2.3.2.</span> <span class="toc_mobile_items-text">专门的关系运算符</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#算术比较符"><span class="toc_mobile_items-number">2.3.3.</span> <span class="toc_mobile_items-text">算术比较符</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#逻辑运算符"><span class="toc_mobile_items-number">2.3.4.</span> <span class="toc_mobile_items-text">逻辑运算符</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#表示记号"><span class="toc_mobile_items-number">2.3.5.</span> <span class="toc_mobile_items-text">表示记号</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#集合运算符-并（Union"><span class="toc_mobile_items-number">2.3.6.</span> <span class="toc_mobile_items-text">集合运算符:并（Union)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#集合运算符-差（Difference）"><span class="toc_mobile_items-number">2.3.7.</span> <span class="toc_mobile_items-text">集合运算符:差（Difference）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#集合运算符-交（intersection）"><span class="toc_mobile_items-number">2.3.8.</span> <span class="toc_mobile_items-text">集合运算符:交（intersection）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#集合运算符-笛卡儿积-Cartesian-Product"><span class="toc_mobile_items-number">2.3.9.</span> <span class="toc_mobile_items-text">集合运算符:笛卡儿积(Cartesian Product)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系运算符-选择（-Selection，又称为限制）"><span class="toc_mobile_items-number">2.3.10.</span> <span class="toc_mobile_items-text">关系运算符:选择（ Selection，又称为限制）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系运算符-投影（Projection）"><span class="toc_mobile_items-number">2.3.11.</span> <span class="toc_mobile_items-text">关系运算符: 投影（Projection）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系运算符-连接（join）"><span class="toc_mobile_items-number">2.3.12.</span> <span class="toc_mobile_items-text">关系运算符:连接（join）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系运算符-除运算（division）"><span class="toc_mobile_items-number">2.3.13.</span> <span class="toc_mobile_items-text">关系运算符:除运算（division）</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章数据库系统概述"><span class="toc-number">1.</span> <span class="toc-text">第一章数据库系统概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1数据和数据管理技术"><span class="toc-number">1.1.</span> <span class="toc-text">1.1数据和数据管理技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据"><span class="toc-number">1.1.1.</span> <span class="toc-text">数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信息"><span class="toc-number">1.1.2.</span> <span class="toc-text">信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信息与数据之间存在着固有的联系："><span class="toc-number">1.1.3.</span> <span class="toc-text">信息与数据之间存在着固有的联系：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据管理技术"><span class="toc-number">1.1.4.</span> <span class="toc-text">数据管理技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信息与数据的区别"><span class="toc-number">1.1.5.</span> <span class="toc-text">信息与数据的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据处理发展的三个阶段"><span class="toc-number">1.1.6.</span> <span class="toc-text">数据处理发展的三个阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#人工管理阶段"><span class="toc-number">1.1.7.</span> <span class="toc-text">人工管理阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统阶段"><span class="toc-number">1.1.8.</span> <span class="toc-text">文件系统阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库阶段"><span class="toc-number">1.1.9.</span> <span class="toc-text">数据库阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2数据库系统"><span class="toc-number">1.2.</span> <span class="toc-text">1.2数据库系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库系统组成"><span class="toc-number">1.2.1.</span> <span class="toc-text">数据库系统组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">1.2.2.</span> <span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库系统的软件主要包括："><span class="toc-number">1.2.3.</span> <span class="toc-text">数据库系统的软件主要包括：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库管理系统"><span class="toc-number">1.2.4.</span> <span class="toc-text">数据库管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库系统结构"><span class="toc-number">1.2.5.</span> <span class="toc-text">数据库系统结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据处理的三个阶段"><span class="toc-number">1.2.6.</span> <span class="toc-text">数据处理的三个阶段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章关系数据库的基本理论"><span class="toc-number">2.</span> <span class="toc-text">第二章关系数据库的基本理论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1关系数据模型"><span class="toc-number">2.1.</span> <span class="toc-text">2.1关系数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关系具有的性质"><span class="toc-number">2.1.1.</span> <span class="toc-text">关系具有的性质:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域"><span class="toc-number">2.1.2.</span> <span class="toc-text">域:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#笛卡尔积"><span class="toc-number">2.1.3.</span> <span class="toc-text">笛卡尔积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#键"><span class="toc-number">2.1.4.</span> <span class="toc-text">键:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实体联系"><span class="toc-number">2.1.5.</span> <span class="toc-text">实体联系:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库的三级体系结构"><span class="toc-number">2.1.6.</span> <span class="toc-text">数据库的三级体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系和关系模式的区别"><span class="toc-number">2.1.7.</span> <span class="toc-text">关系和关系模式的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特点及注意"><span class="toc-number">2.1.8.</span> <span class="toc-text">特点及注意:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-2-关系操作"><span class="toc-number">2.2.</span> <span class="toc-text">2.1.2 关系操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本的关系操作"><span class="toc-number">2.2.1.</span> <span class="toc-text">基本的关系操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系数据语言分类"><span class="toc-number">2.2.2.</span> <span class="toc-text">关系数据语言分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系模型的完整性规则"><span class="toc-number">2.2.3.</span> <span class="toc-text">关系模型的完整性规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-关系代数的基本运算"><span class="toc-number">2.3.</span> <span class="toc-text">2.2 关系代数的基本运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集合运算符"><span class="toc-number">2.3.1.</span> <span class="toc-text">集合运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#专门的关系运算符"><span class="toc-number">2.3.2.</span> <span class="toc-text">专门的关系运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算术比较符"><span class="toc-number">2.3.3.</span> <span class="toc-text">算术比较符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.3.4.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表示记号"><span class="toc-number">2.3.5.</span> <span class="toc-text">表示记号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合运算符-并（Union"><span class="toc-number">2.3.6.</span> <span class="toc-text">集合运算符:并（Union)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合运算符-差（Difference）"><span class="toc-number">2.3.7.</span> <span class="toc-text">集合运算符:差（Difference）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合运算符-交（intersection）"><span class="toc-number">2.3.8.</span> <span class="toc-text">集合运算符:交（intersection）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合运算符-笛卡儿积-Cartesian-Product"><span class="toc-number">2.3.9.</span> <span class="toc-text">集合运算符:笛卡儿积(Cartesian Product)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系运算符-选择（-Selection，又称为限制）"><span class="toc-number">2.3.10.</span> <span class="toc-text">关系运算符:选择（ Selection，又称为限制）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系运算符-投影（Projection）"><span class="toc-number">2.3.11.</span> <span class="toc-text">关系运算符: 投影（Projection）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系运算符-连接（join）"><span class="toc-number">2.3.12.</span> <span class="toc-text">关系运算符:连接（join）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系运算符-除运算（division）"><span class="toc-number">2.3.13.</span> <span class="toc-text">关系运算符:除运算（division）</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png)"><div id="post-info"><div id="post-title"><div class="posttitle">数据库学习笔记</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-10-29<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-10-29</time><div class="post-meta-wordcount"><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="第一章数据库系统概述"><a href="#第一章数据库系统概述" class="headerlink" title="第一章数据库系统概述"></a>第一章数据库系统概述</h1><h2 id="1-1数据和数据管理技术"><a href="#1-1数据和数据管理技术" class="headerlink" title="1.1数据和数据管理技术"></a>1.1数据和数据管理技术</h2><h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><blockquote>
+<p>通常指用符号记录下来的、可以识别的信息。</p>
+</blockquote>
+<p>数据是载荷信息的媒体,它包括数值型数据和非数值型数据。数值型数据是以数字表示信息，而非数值型数据是以符号及其组合来表示信息。例如字符、文字、图表、图形、图像、声音等均属于非数值型数据。  </p>
+<h3 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h3><p>是经过加工处理并对人类社会实践和生产活动产生决策影响的数据。 </p>
+<h3 id="信息与数据之间存在着固有的联系："><a href="#信息与数据之间存在着固有的联系：" class="headerlink" title="信息与数据之间存在着固有的联系："></a>信息与数据之间存在着固有的联系：</h3><p>数据是信息的符号表示或称为载体；信息则是数据的内涵，是对数据语义的解释。</p>
+<h3 id="数据管理技术"><a href="#数据管理技术" class="headerlink" title="数据管理技术"></a>数据管理技术</h3><p>数据管理是指对数据的分类、组织、编码、存储、查询和维护等活动，是数据处理的中心环节。  </p>
+<h3 id="信息与数据的区别"><a href="#信息与数据的区别" class="headerlink" title="信息与数据的区别"></a>信息与数据的区别</h3><p>信息是客观事物属性的反映。是经过加工处理并对人类客观行为产生影响的数据表现形式。</p>
+<p>数据是反映客观事物属性的记录，是信息的具体表现形式。</p>
+<p>任何事物的属性都是通过数据来表示的。</p>
+<p>数据经过加式处理之后，成为信息。</p>
+<p>而信息必须通过数据才能传播，才能对人类有影响。</p>
+<h3 id="数据处理发展的三个阶段"><a href="#数据处理发展的三个阶段" class="headerlink" title="数据处理发展的三个阶段"></a>数据处理发展的三个阶段</h3><blockquote>
+<p>数据处理是指从某些已知的数据出发，推导加工出一些新的数据，这些新的数据又表示了新的信息。 </p>
+</blockquote>
+<h3 id="人工管理阶段"><a href="#人工管理阶段" class="headerlink" title="人工管理阶段"></a>人工管理阶段</h3><blockquote>
+<p>20世纪50年代中期以前，计算机主要用于科学计算，其他工作还没有展开。外部存储器只有磁带、卡片和纸带等，还没有磁盘等字节存取存储设备。软件只有汇编语言，尚无数据管理方面的软件。数据处理的方式基本上是批处理。</p>
+</blockquote>
+<p>人工管理阶段的数据管理有下列特点：</p>
+<pre><code>① 数据不保存在计算机内。 
+
+② 没有专用的软件对数据进行管理。 
+
+③ 只有程序（program）的概念，没有文件（file）的概念。数据的组织方式必须由程序员自行设计与安排。
+
+④ 数据面向程序。即一组数据对应一个程序。</code></pre><h3 id="文件系统阶段"><a href="#文件系统阶段" class="headerlink" title="文件系统阶段"></a>文件系统阶段</h3><blockquote>
+<p>随着数据管理规模的扩大，数据量急剧增加，文件系统显露出三个缺陷：数据冗余（redundancy）、数据不一致（inconsistency）、数据联系弱（poordata relationship） </p>
+</blockquote>
+<p>文件系统阶段的数据管理有以下特点：</p>
+<p>①数据以“文件”形式可长期保存在外部存储器的磁盘上。</p>
+<p>②数据的逻辑结构与物理结构有了区别，但比较简单。 </p>
+<p>③文件组织已多样化。有索引文件、链接文件和直接存取文件等。 </p>
+<p>④数据不再属于某个特定的程序，可以重复使用，即数据面向应用。 </p>
+<p>⑤对数据的操作以记录为单位。</p>
+<h3 id="数据库阶段"><a href="#数据库阶段" class="headerlink" title="数据库阶段"></a>数据库阶段</h3><p>数据库阶段的数据管理具有以下特点：</p>
+<ol>
+<li><p>采用数据模型表示复杂的数据结构。</p>
+</li>
+<li><p>有较高的数据独立性。</p>
+</li>
+<li><p>数据库系统为用户提供了方便的用户接口。 </p>
+</li>
+<li><p>数据库系统提供以下四方面的数据控制功能：数据库的并发控制，数据库的恢复，数据的完整性和数据安全性。</p>
+</li>
+<li><p>增加了系统的灵活性</p>
+</li>
+</ol>
+<h2 id="1-2数据库系统"><a href="#1-2数据库系统" class="headerlink" title="1.2数据库系统"></a>1.2数据库系统</h2><h3 id="数据库系统组成"><a href="#数据库系统组成" class="headerlink" title="数据库系统组成"></a>数据库系统组成</h3><blockquote>
+<p>数据库系统（DataBase Systems，DBS）是为适应数据处理需要而发展起来的一种较为理想数据处理的核心机构。它是一个实际可运行的、存储、维护数据的软件系统并且可以向应用系统提供数据，是存储介质、处理对象和管理系统的集合体。</p>
+</blockquote>
+<p>常见的大中型数据库系统有Oracle、DB2、SQLServer、Sybase等，</p>
+<p>小型数据库系统有Foxpro、Access、Mysql等。 </p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><blockquote>
+<p>数据库是指计算机系统中集中存储的一批数据的集合，它是计算机系统的工作对象。</p>
+</blockquote>
+<blockquote>
+<p> 数据库（DataBase，简记为DB）是指长期存储在计算机内、有组织的、统一管理的相关数据的集合。DB能为各种用户共享，具有较小的数据冗余度、数据间联系紧密而又有较高的数据独立性等特点。</p>
+</blockquote>
+<p> 特别需要指出的是，数据库中的存储数据是“集成的”和“共享的”。</p>
+<p>数据库数据具有永久存储、有组织和可共享三个基本特点。</p>
+<h3 id="数据库系统的软件主要包括："><a href="#数据库系统的软件主要包括：" class="headerlink" title="数据库系统的软件主要包括："></a>数据库系统的软件主要包括：</h3><p>DBMS：DBMS是为数据库的建立、使用和维护配置的系统软件。</p>
+<p>支持DBMS运行的操作系统。</p>
+<p>具有与数据库接口的高级语言及其编译系统，便于开发应用程序。</p>
+<p>以DBMS为核心的应用开发工具。应用开发工具是系统为应用开发人员和最终用户提供的高效率、多功能的应用生成器、第四代语言等各种软件工具。它们为数据库系统的开发和应用提供了良好的环境。</p>
+<p>为特定应用环境开发的数据库应用系统。</p>
+<h3 id="数据库管理系统"><a href="#数据库管理系统" class="headerlink" title="数据库管理系统"></a>数据库管理系统</h3><blockquote>
+<p>数据库管理系统（DataBase Management System，简记DBMS）是位于用户与操作系统之间的一层数据管理软件。它为用户或应用程序提供访问DB的方法，包括DB的建立、查询、更新及各种数据控制。</p>
+</blockquote>
+<blockquote>
+<p>用于负责数据库存取、维护和管理。数据库系统各类用户对数据库的各种操作请求，都是由DBMS来完成的，它是数据库系统的核心软件。</p>
+</blockquote>
+<p>数据库的定义功能：定义语言DDL来定义数据库的三级结构、两级映象，定义数据的完整性约束、保密限制等约束。</p>
+<p>数据库的操纵功能：操纵语言DML实现对数据的基本操作，数据查询和数据更新。</p>
+<p>数据库的保护功能：数据库恢复、数据库的并发控制、数据完整性控制、数据安全性控制。</p>
+<p>数据库的维护功能：数据库的数据载入、转换、转储、数据库的改组以及性能监控工能。</p>
+<p>数据字典（DD）：对数据库的操作都要通过DD才能实现，DD还存放数据库运行时的统计信息。</p>
+<h3 id="数据库系统结构"><a href="#数据库系统结构" class="headerlink" title="数据库系统结构"></a>数据库系统结构</h3><blockquote>
+<p>美国国家标准协会（American National StandardsInstitute，ANSI）数据库管理系统研究小组于1978年提出了标准化的建议，为数据库设计了一个严密的三级模式体系结构，将数据库的体系结构分成三级：外部级（External）、概念级（Conceptual）和内部级（Internal）。这个结构称为“数据库的体系结构”，有时亦称为“三级模式结构”，或“数据抽象的三个级别”。</p>
+</blockquote>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y81f08346770814bdaf75899e1550da4b?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk4MWYwODM0Njc3MDgxNGJkYWY3NTg5OWUxNTUwZGE0YiJ9.XsK5BTzFdWof1DbeStpXl81i1EL1Qtxd_2wFhrjo2h4&download=image.png" class="lazyload"></p>
+<p>三级模式的两级映象 </p>
+<p>模式/内模式映像</p>
+<pre><code>由于这两级的数据结构可能不一致，即记录类型、字段类型的命名和组成可能不一样，因此需要这个映像说明概念记录和内部记录之间的对应性。模式/内模式映像一般是放在内模式中描述的。</code></pre><p> 外模式/模式映像</p>
+<pre><code>外模式/模式映像一般是放在外模式中描述的。三级模式结构中，模式即全局逻辑结构是数据库的中心与关键，它独立于其他层次。因此设计数据库模式结构时应首先确定数据库的逻辑模式。  </code></pre><p>两级数据独立性 </p>
+<p>数据独立性（DataIndependence）</p>
+<p>是指应用程序和数据库的数据结构之间相互独立，不受影响。数据独立性分成物理数据独立性和逻辑数据独立性两个级别。</p>
+<p> 物理数据独立性</p>
+<p>如果数据库的内模式要修改，即数据库的物理结构有所变化，那么只要对模式/内模式映像做相应的修改即可。</p>
+<h3 id="数据处理的三个阶段"><a href="#数据处理的三个阶段" class="headerlink" title="数据处理的三个阶段"></a>数据处理的三个阶段</h3><p>概念数据模型</p>
+<p>独立于计算机系统的数据模型，完全不涉及信息在计算机中的表示，只是用来描述某个特定组织所关心的信息结构。</p>
+<p>逻辑数据模型</p>
+<p>是直接面向数据库的逻辑结构，它是对现实世界的第二层抽象。这类模型直接与DBMS有关，简称“逻辑模型”。  </p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y36b119d7b07caeb1e9d7eea738c6c3fa?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkzNmIxMTlkN2IwN2NhZWIxZTlkN2VlYTczOGM2YzNmYSJ9.rPU6WEoG7_fmgJWoEhh7p-BAtC0xQqPH9ca_M3z5kus&download=image.png" class="lazyload"></p>
+<hr>
+<h1 id="第二章关系数据库的基本理论"><a href="#第二章关系数据库的基本理论" class="headerlink" title="第二章关系数据库的基本理论"></a>第二章关系数据库的基本理论</h1><h2 id="2-1关系数据模型"><a href="#2-1关系数据模型" class="headerlink" title="2.1关系数据模型"></a>2.1关系数据模型</h2><p><code>二维表格</code>表示<code>实体集</code></p>
+<p><code>关键码(外键)表示实体间联系的数据模型称为关系模型。</code></p>
+<p>关系模型由<code>关系数据结构、关系操作集合和关系完整性约束</code>三部分组成。</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yc8490c8ab214ffcebae97b6524a38eb4?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXljODQ5MGM4YWIyMTRmZmNlYmFlOTdiNjUyNGEzOGViNCJ9.XKVkmmOEgp0v9JJa365NeEiaW3JbojwkBKXkU3GSd-0&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>元数:属性的个数</p>
+</blockquote>
+<blockquote>
+<p>基数:元组的的个数</p>
+</blockquote>
+<blockquote>
+<p>元组:一条记录</p>
+</blockquote>
+<blockquote>
+<p>元组的集合称为关系或实例</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+<p>一些字母代表的涵义:</p>
+</blockquote>
+<blockquote>
+<p>U:属性的集合</p>
+</blockquote>
+<blockquote>
+<p>D:属性所来自的域</p>
+</blockquote>
+<blockquote>
+<p>F:属性之间的函数依赖集合</p>
+</blockquote>
+<blockquote>
+<p>Dom:属性向域的映像集合</p>
+</blockquote>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y1a9b047266fdeb344711a0de9521041a?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkxYTliMDQ3MjY2ZmRlYjM0NDcxMWEwZGU5NTIxMDQxYSJ9.GzKzE4Mi9CUTdbvldTrS95ebanhm60I0_A5icLO32DE&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>关系模式名是R</p>
+</blockquote>
+<blockquote>
+<p>关系模式表示为R(A,B,C,D,E)</p>
+</blockquote>
+<h3 id="关系具有的性质"><a href="#关系具有的性质" class="headerlink" title="关系具有的性质:"></a>关系具有的性质:</h3><ol>
+<li><p>属性值是原子的，不可分解</p>
+</li>
+<li><p>没有重复元组</p>
+</li>
+<li><p>没有行序</p>
+</li>
+<li><p>理论上没有列序,但使用时-般都有列序</p>
+</li>
+</ol>
+<h3 id="域"><a href="#域" class="headerlink" title="域:"></a>域:</h3><p><img alt data-src="https://tcs.teambition.net/storage/311yf05414de4276890f9c824d1edc5a44ce?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXlmMDU0MTRkZTQyNzY4OTBmOWM4MjRkMWVkYzVhNDRjZSJ9.v3lN19tM2ndbt9t6a_A25NCPOqSZFhZAkKfdBZ4hCfE&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>  域: D1×D2×…×Dn的子集</p>
+</blockquote>
+<blockquote>
+<p>D1×D2×…×Dn上的关系，用R（D1×D2×…×Dn）表示。</p>
+</blockquote>
+<blockquote>
+<p>这里R表示关系的名字，n是关系的目或度，也称为元数。 </p>
+</blockquote>
+<h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h3><blockquote>
+<p>(笛卡尔积实际是一个二维表)</p>
+</blockquote>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y2b71fc280e2920e073539892518e9e3f?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkyYjcxZmMyODBlMjkyMGUwNzM1Mzk4OTI1MThlOWUzZiJ9.mppdVmxUzZX9FOkXoZUc0f5MDVrULCDQl_C1JjNF324&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>理解:属性与属性之间相互组合成的的一个二维表</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+<p>例子:</p>
+</blockquote>
+<blockquote>
+<p>D1   =｛李力，王平，刘伟｝，m1=3</p>
+</blockquote>
+<blockquote>
+<p>D2  =｛男，女｝；m2 = 2</p>
+</blockquote>
+<blockquote>
+<p>上述表示的教师关系中，</p>
+</blockquote>
+<blockquote>
+<p>姓名和性别两个域的笛卡尔积表示为：</p>
+</blockquote>
+<blockquote>
+<p>D1×D2={(李力，男),(李力，女),(王平，男),</p>
+</blockquote>
+<blockquote>
+<pre><code>(王平，女),(刘伟，男),(刘伟，女)}</code></pre></blockquote>
+<blockquote>
+<p>分量：李力，王平，刘伟，男，女</p>
+</blockquote>
+<blockquote>
+<p>元组：={(李力，男),(李力，女),(王平，男),</p>
+</blockquote>
+<blockquote>
+<pre><code>(王平，女),(刘伟，男),(刘伟，女)};</code></pre></blockquote>
+<blockquote>
+<p>D1×D2 的基数M=3×2=6</p>
+</blockquote>
+<h3 id="键"><a href="#键" class="headerlink" title="键:"></a>键:</h3><p><img alt data-src="https://tcs.teambition.net/storage/311y03b3f869253bc888ab2c082be87e8219?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkwM2IzZjg2OTI1M2JjODg4YWIyYzA4MmJlODdlODIxOSJ9.YZQAS1H2v3_1pcUXnvdnPgNdXEnbRnXOx4Uh_gt5Bao&download=image.png" class="lazyload"></p>
+<h3 id="实体联系"><a href="#实体联系" class="headerlink" title="实体联系:"></a>实体联系:</h3><blockquote>
+<p>例如，学生关系和系部关系分别为：       </p>
+</blockquote>
+<blockquote>
+<p> 学生（SNO，SNAME，SEX，AGE，SDNO）        </p>
+</blockquote>
+<blockquote>
+<p>系部（SDNO，SDNAME，CHAIR）</p>
+</blockquote>
+<blockquote>
+<p>学生关系的主键是SNO，系部关系的主键为SDNO，在学生关系中，SDNO是它的外键。更确切地说，SDNO是系部表的主键，将它作为外键放在学生表中，实现两个表之间的联系。</p>
+</blockquote>
+<blockquote>
+<p>在关系数据库中，表与表之间的联系就是通过公共属性实现的。</p>
+</blockquote>
+<blockquote>
+<p>我们约定，在主键的属性下面加下划线，在外键的属性下面加波浪线。 </p>
+</blockquote>
+<h3 id="数据库的三级体系结构"><a href="#数据库的三级体系结构" class="headerlink" title="数据库的三级体系结构"></a>数据库的三级体系结构</h3><blockquote>
+<p>关系模型中:</p>
+</blockquote>
+<blockquote>
+<p> 概念模式是关系模式的集合</p>
+</blockquote>
+<blockquote>
+<p>   (数据库中全体数据的逻辑结构和特征的描述)</p>
+</blockquote>
+<blockquote>
+<p> 外模式是关系子模式的集合</p>
+</blockquote>
+<blockquote>
+<pre><code>(数据库用户使用的局部数据的逻辑结构和特征的描述)</code></pre></blockquote>
+<blockquote>
+<p> 内模式是存储模式的集合</p>
+</blockquote>
+<blockquote>
+<pre><code>(是数据物理结构和存储方式的描述)</code></pre></blockquote>
+<h3 id="关系和关系模式的区别"><a href="#关系和关系模式的区别" class="headerlink" title="关系和关系模式的区别"></a>关系和关系模式的区别</h3><table>
+<thead>
+<tr>
+<th>关系模式</th>
+<th>关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>型</td>
+<td>值</td>
+</tr>
+<tr>
+<td>关系的框架</td>
+<td>关系的值</td>
+</tr>
+<tr>
+<td>关系表框架</td>
+<td>关系表的数据</td>
+</tr>
+<tr>
+<td>对关系结构的描述</td>
+<td>关系模式某一时刻或者某状态的内容</td>
+</tr>
+<tr>
+<td>静态、稳定的</td>
+<td>动态的</td>
+</tr>
+</tbody></table>
+<h3 id="特点及注意"><a href="#特点及注意" class="headerlink" title="特点及注意:"></a>特点及注意:</h3><p><img alt data-src="https://tcs.teambition.net/storage/311y826e9814004aa5ca39d2e648528ca225?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk4MjZlOTgxNDAwNGFhNWNhMzlkMmU2NDg1MjhjYTIyNSJ9.8nUhBrL-WUz4o769BRlW9EZJ2sCfEQueMo17-2WQsbQ&download=image.png" class="lazyload"></p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ybd2239e0694e226c06f2107699b70441?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliZDIyMzllMDY5NGUyMjZjMDZmMjEwNzY5OWI3MDQ0MSJ9.gQvQjAmXzdIzW2nq6B-K0n2CziYEdAqAgI7w7_dzGsc&download=image.png" class="lazyload"></p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yf0b068c58a6b9b7bef84cc67460e95f0?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXlmMGIwNjhjNThhNmI5YjdiZWY4NGNjNjc0NjBlOTVmMCJ9.cZJ4X-nFnwhFvYiFMUMRhEOaNz-G56_r47YNyjB3lc4&download=image.png" class="lazyload"></p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ybfda2bdc1f56b35a89676e189233afa0?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliZmRhMmJkYzFmNTZiMzVhODk2NzZlMTg5MjMzYWZhMCJ9.42f252MD9gyZ9igG_O86G2BdmzUVPQ0b76yeiesh0XI&download=image.png" class="lazyload"></p>
+<h2 id="2-1-2-关系操作"><a href="#2-1-2-关系操作" class="headerlink" title="2.1.2 关系操作"></a>2.1.2 关系操作</h2><h3 id="基本的关系操作"><a href="#基本的关系操作" class="headerlink" title="基本的关系操作"></a>基本的关系操作</h3><blockquote>
+<p>关系操作的特点是集合操作方式，即操作的对象和结果都是集合。这种操作方式也称称为一次一集合（set-at-a-time）的方式。</p>
+</blockquote>
+<p>关系模型中常用的关系操作包括查询（Query）操作和插入（Insert）、删除（Delete）、修改（Update）操作。</p>
+<p>查询操作又可以分为：选择（Select）、投影（Project）、连接（Join）、除（Divide）、并（Union）、差（Except）、交（Intersection）、笛卡尔积等。其中<code>选择、投影、并、差、笛卡尔积</code>是5种基本操作。</p>
+<h3 id="关系数据语言分类"><a href="#关系数据语言分类" class="headerlink" title="关系数据语言分类"></a>关系数据语言分类</h3><blockquote>
+<p>关系语言是一种高度非过程化的语言，用户不必请求DBA为其建立特殊的存取路径，存取路径的选择由RDBMS的优化机制来完成。 </p>
+</blockquote>
+<p>关系数据语言可以分为三类：<code>关系代数、元组关系演算和域关系演算</code>。该三种语言在表达能力上是完全等价的。 </p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yb860ef9be9991ba5b0754c9d723d4308?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYwNDU1NjE3OSwiaWF0IjoxNjAzOTUxMzc5LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliODYwZWY5YmU5OTkxYmE1YjA3NTRjOWQ3MjNkNDMwOCJ9.IdoakeEWTGFECaKKg0I4aQrgj_3J6VBGrqCgk7eSMQg&download=image.png" class="lazyload"></p>
+<h3 id="关系模型的完整性规则"><a href="#关系模型的完整性规则" class="headerlink" title="关系模型的完整性规则"></a>关系模型的完整性规则</h3><blockquote>
+<p>关系模型的完整性规则是对关系的某种约束条件。这些约束条件实际上是现实世界的要求。</p>
+</blockquote>
+<p>关系模型中有三类完整性约束：实体完整性、参照完整性和用户定义的完整性。</p>
+<p>实体完整性、参照完整性是关系模型必须满足的完整性约束条件，被称作是关系的两个不变性，应该由关系系统自动支持。</p>
+<p>用户定义的完整性是应用领域需要遵循的约束条件，体现了具体领域中的语义约束。 </p>
+<ul>
+<li>实体完整性（EntityIntegrity）规则：若属性（指一个或一组属性）A是基本关系R的主属性。则A不能取空值。 <code>(主键的属性上不能有空值。如果出现空值，那么主键值就起不了惟一标织元组的作用。)</code></li>
+</ul>
+<p>实体完整性规则说明如下几点：</p>
+<p>⑴实体完整性规则是针对基本关系而言的。一个基本关系通常对应现实世界的一个实体集。例如学生关系对应于学生的集合。</p>
+<p>⑵现实世界中的实体是可区分的，即它们具有某种唯一性标识。例如每个学生都是独立的个体，是不一样的。</p>
+<p>⑶关系模型中以主码作为唯一性标识。</p>
+<p>⑷主码中的属性即主属性不能取空值。如果主属性取空值，就说明存在某个不可标识的实体，即存在不可区分的实体，这与第⑵点相矛盾，因此这个规则称为实体完整性</p>
+<ul>
+<li>参照完整性规则:如果属性集K是关系模式R1的主键，K也是关系模式R2的外键，那么在R2的关系中，K的取值只允许两种可能，或者为空值，或者等于R1关系中某个主键值。<code>(不允许引用不存在的实体)</code></li>
+</ul>
+<p>下面各种情况说明了参照完整性规则在关系中如何实现的。</p>
+<p>① 在关系数据库中有下列两个关系模式：</p>
+<pre><code>S（__S#__，SNAME，AGE，SEX）
+
+SC（__S#，C#__，GRADE）</code></pre><p>这里带下划线者为主键，带红虚线者为外键。据规则要求，关系SC中的S# 值应该在关系S中出现。如果关系SC中有一个元组（S7,C4,80），而学号S7却在关系S中找不到，那么我们就认为在关系SC中引用了一个不存在的学生实体，这就违反了参照完整性规则。</p>
+<p>另外，在关系SC中S#不仅是外键，也是主键的一部分，因此这里S# 值不允许空。</p>
+<ul>
+<li>用户定义的完整性规则:用户可以针对具体的数据约束，设置完整性规则，由系统来检验实施，以使用统一的方法处理它们，不再由应用程序承担这项工作。</li>
+</ul>
+<p>在建立关系模式时，对属性定义了数据类型，即使这样可能还满足不了用户的需求。</p>
+<p>例如学生的年龄定义为两位整数，范围还太大，我们可以写如下规则把年龄限制在15～30岁之间：</p>
+<p>CHECK（AGE  BETWEEN 15  AND  30） </p>
+<h2 id="2-2-关系代数的基本运算"><a href="#2-2-关系代数的基本运算" class="headerlink" title="2.2 关系代数的基本运算"></a>2.2 关系代数的基本运算</h2><blockquote>
+<p>关系代数是一种抽象的查询语言，它用对关系的运算来表达查询。</p>
+</blockquote>
+<blockquote>
+<p>关系代数的运算对象是关系，结果也是关系。用到的运算符有：集合运算符、专门的关系运算符、算术比较符、逻辑运算符。</p>
+</blockquote>
+<h3 id="集合运算符"><a href="#集合运算符" class="headerlink" title="集合运算符"></a>集合运算符</h3><blockquote>
+<p>将关系看成元组的集合</p>
+</blockquote>
+<blockquote>
+<p>运算是从关系的“水平”方向即行的角度来进行</p>
+</blockquote>
+<h3 id="专门的关系运算符"><a href="#专门的关系运算符" class="headerlink" title="专门的关系运算符"></a>专门的关系运算符</h3><blockquote>
+<p>不仅涉及行而且涉及列</p>
+</blockquote>
+<h3 id="算术比较符"><a href="#算术比较符" class="headerlink" title="算术比较符"></a>算术比较符</h3><blockquote>
+<p>辅助专门的关系运算符进行操作</p>
+</blockquote>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><blockquote>
+<p>辅助专门的关系运算符进行操作</p>
+</blockquote>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ybab2ae981bafe10214f9e45c18aba6a6?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MzkxNSwiaWF0IjoxNjAzOTU5MTE1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliYWIyYWU5ODFiYWZlMTAyMTRmOWU0NWMxOGFiYTZhNiJ9.AmYKRI65r7ESdaZvrNAIm0QYeyEH9EDImBymVLkL1xA&download=image.png" class="lazyload"></p>
+<h3 id="表示记号"><a href="#表示记号" class="headerlink" title="表示记号"></a>表示记号</h3><p><img alt data-src="https://tcs.teambition.net/storage/311y2a8eff99786d1eabf1f28ac4d8f67b0a?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1Njk3MiwiaWF0IjoxNjAzOTUyMTcyLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkyYThlZmY5OTc4NmQxZWFiZjFmMjhhYzRkOGY2N2IwYSJ9.UiDJfwx1kfZH74GgYQsyr2jL3wsowdEDcPIjDGvzuWw&download=image.png" class="lazyload"></p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yb78131d3ceb75951272a9575ff1c5c21?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1NzEyMiwiaWF0IjoxNjAzOTUyMzIyLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliNzgxMzFkM2NlYjc1OTUxMjcyYTk1NzVmZjFjNWMyMSJ9.WltvfIYzIqihKdsP1bdFwVupqOEodM03WTiL8h9o9oo&download=image.png" class="lazyload"></p>
+<p>象集实例</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y5532c526d928a842f7c29fe2cb55c5d5?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1NzM4NSwiaWF0IjoxNjAzOTUyNTg1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk1NTMyYzUyNmQ5MjhhODQyZjdjMjlmZTJjYjU1YzVkNSJ9.sQLqn5aBLpMKC-mZINb966VK-5h7dhkXCXN7mUdUI7o&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>在关系R中，A可以取四个值{a1，a2，a3，a4}，这样：</p>
+</blockquote>
+<blockquote>
+<p>a1的象集为{(b1，c2)，(b2，c3)，(b2，c1)}</p>
+</blockquote>
+<blockquote>
+<p>a2的象集为{(b3，c7)，(b2，c3)}</p>
+</blockquote>
+<blockquote>
+<p>a3的象集为{(b4，c6)}</p>
+</blockquote>
+<blockquote>
+<p>a4的象集为{(b6，c6)}</p>
+</blockquote>
+<h3 id="集合运算符-并（Union"><a href="#集合运算符-并（Union" class="headerlink" title="集合运算符:并（Union)"></a>集合运算符:并（Union)</h3><blockquote>
+<p>具有相同的n元（即两个关系都有n个属性）</p>
+</blockquote>
+<blockquote>
+<p>相应的属性取自同一个域</p>
+</blockquote>
+<blockquote>
+<p>消除重复的元组</p>
+</blockquote>
+<pre><code>设关系R和S具有相同的关系模式，R和S的并是由`属于R或属于S的元组构成的集合`，记为`R∪S`。形式定义如下：</code></pre><p>R∪S≡{t | t∈R ∨ t∈S}，t是元组变量。</p>
+<p>并运算的结果实例如下:</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yc3d90544c0afe7ae21a0c0147d8d50e8?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODE4NiwiaWF0IjoxNjAzOTUzMzg2LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXljM2Q5MDU0NGMwYWZlN2FlMjFhMGMwMTQ3ZDhkNTBlOCJ9.FNIFoj298hyb128eCoubspDXd7ng6BVkDBsd6_FBt-8&download=image.png" class="lazyload"></p>
+<h3 id="集合运算符-差（Difference）"><a href="#集合运算符-差（Difference）" class="headerlink" title="集合运算符:差（Difference）"></a>集合运算符:差（Difference）</h3><p>设关系R和S具有相同的关系模式，R和S的差是<code>由属于R但不属于S的元组构成的集合</code>，记为<code>R－S</code>。形式定义如下：</p>
+<pre><code>R－S≡{ t | t∈R ∧ t∈S}，R和S的元数相同。</code></pre><p>差运算的结果实例如下:</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ydfae431fe5d59e151315d2188447ef98?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODM2NiwiaWF0IjoxNjAzOTUzNTY2LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXlkZmFlNDMxZmU1ZDU5ZTE1MTMxNWQyMTg4NDQ3ZWY5OCJ9.SK48nqHXBKzIOt-Wn74uxPL7fNdcTDHH8aXOv1ZzHN4&download=image.png" class="lazyload"></p>
+<h3 id="集合运算符-交（intersection）"><a href="#集合运算符-交（intersection）" class="headerlink" title="集合运算符:交（intersection）"></a>集合运算符:交（intersection）</h3><p>关系<code>R和S的交</code>是由<code>属于R又属于S的元组构成的集合</code>，记为R∩S，这里要求R和S定义在相同的关系模式上。形式定义如下：</p>
+<pre><code>R∩S≡{t︱t∈R ∧ t∈S}，R和S的元数相同。</code></pre><p>交运算的结果实例如下:</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yccc8c58111434ea79c97f31b5eaee898?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODUyNSwiaWF0IjoxNjAzOTUzNzI1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXljY2M4YzU4MTExNDM0ZWE3OWM5N2YzMWI1ZWFlZTg5OCJ9.wreY0Ca0ZdGMTC377bQIw5M_bnj2iNUepiMCGcwQ04E&download=image.png" class="lazyload"></p>
+<h3 id="集合运算符-笛卡儿积-Cartesian-Product"><a href="#集合运算符-笛卡儿积-Cartesian-Product" class="headerlink" title="集合运算符:笛卡儿积(Cartesian Product)"></a>集合运算符:笛卡儿积(Cartesian Product)</h3><blockquote>
+<p>属性与属性之间相互组合成的的一个二维表</p>
+</blockquote>
+<p>设关系R和S的元数分别为r和s,定义R和S的一个(r+s)元的元组集合，每个元组的前r个分量来自R的一个元组，后s个分量来自S的一个元组，记为R×S。</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ybfff742e6be9c74f09c0ddbfd0aadf2e?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODY1MywiaWF0IjoxNjAzOTUzODUzLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliZmZmNzQyZTZiZTljNzRmMDljMGRkYmZkMGFhZGYyZSJ9.8KpqnYBsmUFf8Aupwt57A5PBH9jC9W7CI-EUS9rc-qw&download=image.png" class="lazyload"></p>
+<p>笛卡尔积运算的结果实例如下图</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yd978e86233edda88150afa58790156c6?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODc0MiwiaWF0IjoxNjAzOTUzOTQyLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXlkOTc4ZTg2MjMzZWRkYTg4MTUwYWZhNTg3OTAxNTZjNiJ9.QD0_8Lt4_3l_nmOB7mk2r4wheNVieJkOhny67tNcmEo&download=image.png" class="lazyload"></p>
+<h3 id="关系运算符-选择（-Selection，又称为限制）"><a href="#关系运算符-选择（-Selection，又称为限制）" class="headerlink" title="关系运算符:选择（ Selection，又称为限制）"></a>关系运算符:选择（ Selection，又称为限制）</h3><pre><code>选择操作是根据某些条件对关系做水平分割，即选取符合条件的元组。条件可用命题公式（即计算机语言中的条件表达式）F表示。</code></pre><p><img alt data-src="https://tcs.teambition.net/storage/311y65e78cba40549519d8f18b2324070091?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1ODkyNCwiaWF0IjoxNjAzOTU0MTI0LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk2NWU3OGNiYTQwNTQ5NTE5ZDhmMThiMjMyNDA3MDA5MSJ9.W-0Z-hr5pD1ZQMkRtnojqL-sCZtUXZSzXbmJQJH6GAs&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>F中的基本形式为：X1θY1：</p>
+</blockquote>
+<blockquote>
+<p> 其中θ表示比较运算符:＞，≥，＜，≤，＝，＜＞。</p>
+</blockquote>
+<blockquote>
+<p>X1，Y1等是属性名，常量，或列序号。</p>
+</blockquote>
+<blockquote>
+<p>F是一个逻辑表达式,取逻辑值”true”或”false”.在选择条件表达式F中,属性有时用其排列序号来表示,常量值用单引号括起来.</p>
+</blockquote>
+<p>在关系S(SNO,SEX,AGE,SDEPT)中查询计算机科学系(cs)的全体学生.用代数表达式表示如下:</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y00040538ee572539c46cb47d8547a3ae?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU1OTU0NywiaWF0IjoxNjAzOTU0NzQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkwMDA0MDUzOGVlNTcyNTM5YzQ2Y2I0N2Q4NTQ3YTNhZSJ9.cFFPep9abSTx2H_WOutUJkpul8vRxy2DPEZa32h55KA&download=image.png" class="lazyload"></p>
+<h3 id="关系运算符-投影（Projection）"><a href="#关系运算符-投影（Projection）" class="headerlink" title="关系运算符: 投影（Projection）"></a>关系运算符: 投影（Projection）</h3><blockquote>
+<p>  投影操作主要是从列的角度进行运算</p>
+</blockquote>
+<blockquote>
+<p>注意：投影之后不仅取消了原关系中的某些列，而且还可能取消某些元组（避免重复行）</p>
+</blockquote>
+<p>含义是从<code>R中选择出若干属性列组成新的关系</code>，形式定义为：</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y0e494cb0e9e921d3c5bc52dd625658dd?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MDMxNiwiaWF0IjoxNjAzOTU1NTE2LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXkwZTQ5NGNiMGU5ZTkyMWQzYzViYzUyZGQ2MjU2NThkZCJ9.FJ3TiTpzhrNcxfiyDwCi5fHQ6FMQsZWPoq5myAWm3NE&download=image.png" class="lazyload"></p>
+<p>其中A为R中的属性列。</p>
+<p>查询学生的姓名和所在系，即求S关系上学生姓名和所在系两个属性上的投影。</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y842bd8d8b99190907e7d4dae784104cf?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MDQyOCwiaWF0IjoxNjAzOTU1NjI4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk4NDJiZDhkOGI5OTE5MDkwN2U3ZDRkYWU3ODQxMDRjZiJ9.v33a_aoedvGncAWe1ao8FnFpFcT1V74SatSb45B93_8&download=image.png" class="lazyload"></p>
+<h3 id="关系运算符-连接（join）"><a href="#关系运算符-连接（join）" class="headerlink" title="关系运算符:连接（join）"></a>关系运算符:连接（join）</h3><blockquote>
+<p>连接也称为θ连接</p>
+</blockquote>
+<p>含义:<code>从两个关系的笛卡尔积中选取属性间满足一定条件的元组。</code></p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311yd30e7f4522e4e855742a6e724bb779fb?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MDYyMiwiaWF0IjoxNjAzOTU1ODIyLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXlkMzBlN2Y0NTIyZTRlODU1NzQyYTZlNzI0YmI3NzlmYiJ9.g70bw6btyQCI3IYroX22CAIGGDyKhzIsce8KOj7YM8U&download=image.png" class="lazyload"></p>
+<p>A和B：分别为R和S上度数相等且可比的属性组</p>
+<p>θ：比较运算符 </p>
+<p>连接运算从R和S的广义笛卡尔积R×S中选取（R关系）在A属性组上的值与（S关系）在B属性组上值满足比较关系的元组。 </p>
+<p>两类常用连接运算:</p>
+<p>等值连接（equijoin）<code>(θ为“＝”的连接运算称为等值连接)</code></p>
+<p>从关系R与S的广义笛卡尔积中选取A、B属性值相等的那些元组，即等值连接为：</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ye31665d42ce2fb45ecd03c66a9fa21b1?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MTA5MSwiaWF0IjoxNjAzOTU2MjkxLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXllMzE2NjVkNDJjZTJmYjQ1ZWNkMDNjNjZhOWZhMjFiMSJ9.Id3mWrdZ0qsNBFvMj9b2-UCFgzteVSRyit8QLFFDu4g&download=image.png" class="lazyload"></p>
+<p>自然连接（Naturaljoin） <code>(自然连接是一种特殊的等值连接)</code></p>
+<blockquote>
+<p>两个关系中进行比较的分量必须是相同的属性组</p>
+</blockquote>
+<blockquote>
+<p>在结果中把重复的属性列去掉</p>
+</blockquote>
+<blockquote>
+<p>同时从行和列的角度进行运算。</p>
+</blockquote>
+<p>自然连接的含义:</p>
+<p>R和S具有相同的属性组B</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y52897404ce3b15c47508af0564fe853e?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MTI2NSwiaWF0IjoxNjAzOTU2NDY1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk1Mjg5NzQwNGNlM2IxNWM0NzUwOGFmMDU2NGZlODUzZSJ9.mdvXyN6ZzznAqsB2kT2wAKRHuUoCuAd_C0ZzoBg385I&download=image.png" class="lazyload"></p>
+<blockquote>
+<p>两个关系R和S在做自然连接时，选择两个关系在公共属性上值相等的元组构成新的关系。此时，关系R中某些元组有可能在S中不存在公共属性上值相等的元组，从而造成R中这些元组在操作时被舍弃了，同样，S中某些元组也可能被舍弃。</p>
+</blockquote>
+<p>外连接(Outer join):</p>
+<p>如果把舍弃的元组也保存在结果关系中，而在其他属性上填空值（Null）</p>
+<p>左外连接（Leftouter join或Leftjoin）:</p>
+<p>如果只把左边关系R中要舍弃的元组保留</p>
+<p>右外连接（Rightouter join或Rightjoin）:</p>
+<p>如果只把右边关系S中要舍弃的元组保留</p>
+<h3 id="关系运算符-除运算（division）"><a href="#关系运算符-除运算（division）" class="headerlink" title="关系运算符:除运算（division）"></a>关系运算符:除运算（division）</h3><p>是含有m个属性的关系除以一个含有n个属性的关系S,其运算是一个含有m-n个属性的新关系记为R÷S</p>
+<blockquote>
+<p>关系R与关系S需满足</p>
+</blockquote>
+<blockquote>
+<p>关系R的属性包含关系S中的全部属性</p>
+</blockquote>
+<blockquote>
+<p>关系R的某些属性不出现在S中</p>
+</blockquote>
+<p><img alt data-src="https://tcs.teambition.net/storage/311ybd4cf0df2ac95b0b372d0f12e80272d8?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MjA3MiwiaWF0IjoxNjAzOTU3MjcyLCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXliZDRjZjBkZjJhYzk1YjBiMzcyZDBmMTJlODAyNzJkOCJ9.aNwIjWwXFVsel1cq8hnRoftT6CMnEDbp0timVlGYEcM&download=image.png" class="lazyload"></p>
+<p>除运算的运算结果</p>
+<p><img alt data-src="https://tcs.teambition.net/storage/311y6c49b88c5c9da68820cf34f5606e124b?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IjVmOTAzYWMzNzc3NGJiZTk2NWE0N2MzMSIsImV4cCI6MTYwNDU2MjYzNSwiaWF0IjoxNjAzOTU3ODM1LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXk2YzQ5Yjg4YzVjOWRhNjg4MjBjZjM0ZjU2MDZlMTI0YiJ9.uNq1AYLJizdnX-KTJR9ja7BGlDBAD5p02YjqbkXlRCU&download=image.png" class="lazyload"></p>
+<p>除运算理解:</p>
+<blockquote>
+<p>设关系R除以关系S的结果为关系T，则T包含所有在R但不在S中的属性及其值，且T的元组与S的元组的所有组合都在R中。</p>
+</blockquote>
+<blockquote>
+<p>求属性的象集全部包含在另一个关系里面才算  </p>
+</blockquote>
+<p><a href="https://blog.csdn.net/weixin_42166771/article/details/88840958?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.compare&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.compare" target="_blank" rel="noopener">数据库中的除运算一点就通_拾贝-CSDN博客</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" target="_blank" rel="noopener">kei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/10/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/">http://yoursite.com/2020/10/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Kei's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GXUST%E7%AC%94%E8%AE%B0/">GXUST笔记    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/10/29/%E8%AE%A1%E7%BD%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>计网学习笔记</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/10/29/计网学习笔记/" title="计网学习笔记"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><div class="relatedPosts_title">计网学习笔记</div></a></div></div><div class="clear_both"></div></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By kei</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true; // make power mode colorful
+POWERMODE.shake = true; // turn off shake
+document.body.addEventListener('input', POWERMODE);
+</script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
